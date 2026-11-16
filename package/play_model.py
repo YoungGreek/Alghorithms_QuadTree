@@ -1,14 +1,19 @@
+"""
+В данному модуле перечислены функции, реализующие механику движения, столкновения,
+так же этот модуль - точка запуска модели
+"""
+
+
 from __future__ import annotations
 
 import math
 import random
 import pygame
 
-from settings import input_screen
-from figures import Ball, Rectangle
-from quadtree import QuadTree
+from package.settings import input_screen
+from package.figures import Ball, Rectangle
+from package.quadtree import QuadTree
 
-WIDTH, HEIGHT = 1000, 800
 FPS = 60
 
 
@@ -106,9 +111,9 @@ def start_model():
     if params is None:
         pygame.quit()
         raise SystemExit
-    n_balls, r_min, r_max, WIDTH, HEIGHT, v_min, v_max = params
+    n_balls, r_min, r_max, width, height, v_min, v_max = params
 
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption('QuadTree collisions')
     clock = pygame.time.Clock()
 
@@ -118,8 +123,8 @@ def start_model():
     for _ in range(n_balls):
         r = random.randint(r_min, r_max)
 
-        x = random.uniform(r, WIDTH - r)
-        y = random.uniform(r, HEIGHT - r)
+        x = random.uniform(r, width - r)
+        y = random.uniform(r, height - r)
 
         speed = random.uniform(v_min, v_max)
         ang = random.uniform(0, 2 * math.pi)
@@ -140,14 +145,14 @@ def start_model():
             ball.x += ball.vx * dt
             ball.y += ball.vy * dt
 
-        wall_collisions(balls, WIDTH, HEIGHT)
+        wall_collisions(balls, width, height)
 
-        pairs, qt = find_collisions(balls, WIDTH, HEIGHT)
+        pairs, qt = find_collisions(balls, width, height)
         last_qt = qt
         for (ball, b, nx, ny, dist) in pairs:
             resolve_pair(ball, b, nx, ny, dist)
 
-        wall_collisions(balls, WIDTH, HEIGHT)
+        wall_collisions(balls, width, height)
 
         screen.fill((15, 15, 25))
         if last_qt is not None:

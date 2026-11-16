@@ -1,13 +1,26 @@
+""" Модуль описывает класс quadtree """
+
+
 from __future__ import annotations
 
-from figures import Rectangle, Ball
 import pygame
+from package.figures import Rectangle, Ball
+
 
 CAPACITY = 1
 MAX_DEPTH = 16
 
 
 class QuadTree:
+
+    """
+    Класс реализующий дерево квадрантов (дерево, в котором у каждого узла ровно 4 потомка).
+    Имеет следующие методы:
+        subdivide - добавление 4 потомков к текущему узлу (значения в узле сохраняются).
+        insert - вставка в дерево (вставляется элемент класса Ball).
+        query - получение Ball которые находятся в рассматриваемом Rectangle.
+        draw - раскрашивание узла (границ прямоугольника)
+    """
 
     def __init__(self, boundary: Rectangle, capacity: int = CAPACITY, depth: int = 0, max_depth: int = MAX_DEPTH):
         self.boundary = boundary
@@ -68,7 +81,7 @@ class QuadTree:
             self.sw.query(rect, out)
             self.se.query(rect, out)
 
-    def draw(self, surf, color: Any = (60, 90, 130)):
+    def draw(self, surf, color=(60, 90, 130)):
         """
         Раскрашивание границ текущего узла
         """

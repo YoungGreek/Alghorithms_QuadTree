@@ -1,3 +1,6 @@
+""" Создание окна настроек """
+
+
 from __future__ import annotations
 
 import pygame
@@ -9,8 +12,8 @@ def input_screen():
 
     return: (n, rmin, rmax, w, h, vmin, vmax) или None, если окно закрыто.
     """
-    SW, SH = 480, 470
-    s = pygame.display.set_mode((SW, SH))
+    screen_width, screen_height = 480, 470
+    s = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption("Настройки")
     clock = pygame.time.Clock()
     font = pygame.font.SysFont(None, 22)

@@ -1,4 +1,6 @@
-from play_model import start_model
+""" Стартовая точка программы """
+
+from package.play_model import start_model
 
 
 if __name__ == '__main__':

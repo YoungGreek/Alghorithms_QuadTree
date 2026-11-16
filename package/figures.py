@@ -1,3 +1,5 @@
+"""Модуль хранит классы - фигуры (шар и прямоугольник)"""
+
 from __future__ import annotations
 
 import math
@@ -5,7 +7,9 @@ import random
 
 
 class Ball:
-
+    """
+    Класс шар используется как основной объект за которым мы наблюдаем
+    """
     _next_id = 0
 
     def __init__(self, x: float | int, y: float | int, vx: float | int, vy: float | int, r: float | int):
@@ -22,7 +26,9 @@ class Ball:
 
 
 class Rectangle:
-
+    """
+    Класс прямоугольник, используется как объект, с помощью которого определяются коллизии
+    """
     __slots__ = ("x", "y", "w", "h")
 
     def __init__(self, x: float | int, y: float | int, w: float | int, h: float | int):
