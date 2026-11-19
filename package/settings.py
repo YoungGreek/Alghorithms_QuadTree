@@ -12,7 +12,7 @@ def input_screen():
 
     return: (n, rmin, rmax, w, h, vmin, vmax) или None, если окно закрыто.
     """
-    screen_width, screen_height = 480, 470
+    screen_width, screen_height = 800, 470
     s = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption("Настройки")
     clock = pygame.time.Clock()
@@ -22,9 +22,9 @@ def input_screen():
               "Мин. радиус", "Макс. радиус",
               "Ширина области", "Высота области",
               "Мин. скорость", "Макс. скорость"]
-    texts = ["60", "10", "25", "1000", "800", "80", "220"]
-    rects = [pygame.Rect(190, 25 + i * 50, 265, 30) for i in range(7)]
-    button = pygame.Rect(140, 410, 200, 36)
+    texts = ["60", "10", "25", "1000", "800", "-80", "220"]
+    rects = [pygame.Rect(340, 25 + i * 50, 265, 30) for i in range(7)]
+    button = pygame.Rect(290, 410, 200, 36)
     active = 0
     error = ""
 
@@ -45,19 +45,16 @@ def input_screen():
             return None, "Все поля должны содержать целые числа"
 
         if n < 1:
-            return None, "Шаров >= 1"
+            return None, "Проверьте корректность ввода, должно быть: Шаров >= 1"
 
         if rmin < 1 or rmax < rmin:
-            return None, "Нужно 1 <= min <= max"
+            return None, "Проверьте корректность ввода, должно быть: 1 <= Мин. радиус <= Макс. радиус"
 
         if w < 100 or h < 100:
-            return None, "Область минимум 100x100"
-
-        if rmax * 2 >= min(w, h):
-            return None, "Слишком большой радиус"
+            return None, "Проверьте корректность ввода, должно быть: Область минимум 100 x 100"
 
         if vmin < 0 or vmax < vmin:
-            return None, "Нужно 0 <= min <= max"
+            return None, "Проверьте корректность ввода, должно быть: 0 <= Мин. скорость <= Макс. скорость"
 
         return (n, rmin, rmax, w, h, vmin, vmax), ""
 
@@ -112,7 +109,7 @@ def input_screen():
 
         s.fill((30, 30, 45))
         for i, (lbl, r) in enumerate(zip(labels, rects)):
-            s.blit(font.render(lbl + ":", True, (200, 200, 210)), (15, r.y + 5))
+            s.blit(font.render(lbl + ":", True, (200, 200, 210)), (200, r.y + 5))
             pygame.draw.rect(s, (40, 40, 55), r)
             pygame.draw.rect(s, (120, 180, 255) if i == active else (80, 80, 110), r, 2)
             s.blit(font.render(texts[i], True, (240, 240, 240)), (r.x + 6, r.y + 5))
@@ -123,7 +120,7 @@ def input_screen():
                     button.y + (button.h - bt.get_height()) // 2))
 
         if error:
-            s.blit(font.render(error, True, (255, 120, 120)), (15, 385))
+            s.blit(font.render(error, True, (255, 120, 120)), (100, 385))
 
         pygame.display.flip()
         clock.tick(60)
